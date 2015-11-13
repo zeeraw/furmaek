@@ -109,6 +109,15 @@ a {
 }
 
 .character-preview {
-  @include aspect-ratio(5, 6);
-  background: white;
+  position: relative;
 }
+
+.character-preview img {
+  max-width: 100%;
+  @include aspect-ratio(5, 6);
+  position: absolute;
+}
+
+.character-head { z-index: 3; }
+.character-body { z-index: 2; }
+.character-tail { z-index: 1; }

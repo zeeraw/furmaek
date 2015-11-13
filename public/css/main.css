@@ -88,20 +88,37 @@ a:visited:hover {
 
 .character-preview {
   position: relative;
-  background: white;
 }
-.character-preview:before {
+
+.character-preview img {
+  max-width: 100%;
+  position: relative;
+  position: absolute;
+}
+.character-preview img:before {
   display: block;
   content: "";
   width: 100%;
   padding-top: 120%;
 }
-.character-preview > .content {
+.character-preview img > .content {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.character-head {
+  z-index: 3;
+}
+
+.character-body {
+  z-index: 2;
+}
+
+.character-tail {
+  z-index: 1;
 }
 
 /*# sourceMappingURL=main.css.map */
