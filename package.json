@@ -5,7 +5,7 @@
   "main": "src/boot.js",
   "private": true,
   "scripts": {
-    "start": "bin/furmaker"
+    "start": "bin/furmaek"
   },
   "repository": {
     "type": "git",
