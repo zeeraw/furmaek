@@ -43,11 +43,11 @@ module.exports = function(grunt) {
 
     bower: {
       dev: {
-        dest: "public/",
-        js_dest: "public/js",
-        css_dest: "public/css",
-        fonts_dest: 'public/fonts/',
-        images_dest: 'public/images/'
+        dest: "src/",
+        js_dest: "src/js",
+        css_dest: "src/css",
+        fonts_dest: "src/fonts/",
+        images_dest: "src/images/"
       }
     },
 
