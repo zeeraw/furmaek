@@ -1,0 +1,114 @@
+$size-header-height: 80px;
+$size-footer-height: 30px;
+$size-font: 13px;
+$size-body-padding: 15px;
+$size-inline-padding: 7px;
+
+$colour-text: #E6E6E6;
+$colour-text-link: #8935e4;
+$colour-text-link-visited: #6d38e4;
+$colour-background: #3A3A3A;
+$colour-header: rgba(0,0,0,.3);
+$colour-footer: rgba(0,0,0,.3);
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+body {
+  color: $colour-text;
+  margin: 0;
+  padding: 0;
+  background: $colour-background;
+  font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+}
+
+a {
+  color: $colour-text-link;
+  text-decoration: none;
+  &:hover { color: darken($colour-text-link, 10%); }
+  &:visited { color: $colour-text-link-visited; }
+  &:visited:hover { color: darken($colour-text-link-visited, 10%); }
+}
+
+.site-header {
+  background: $colour-header;
+  height: $size-header-height;
+  h1 {
+    float: left;
+    margin: 0 0 0 $size-body-padding;
+    padding: 0;
+    line-height: $size-header-height;
+    a {
+      color: $colour-text;
+      &:hover { color: darken($colour-text, 10%); }
+    }
+  }
+}
+
+.site-content {
+  position: fixed;
+  top: $size-header-height;
+  bottom: $size-footer-height;
+  left: 0;
+  right: 0;
+}
+
+.site-footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: $size-footer-height;
+  background: $colour-footer;
+  p {
+    font-size: $size-font;
+    line-height: $size-footer-height;
+    color: $colour-text;
+    margin: 0 $size-body-padding;
+    padding: 0;
+    font-weight: bold;
+  }
+}
+
+.character-controls,
+.character-scene {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+}
+
+.character-controls {
+  left: 0px;
+  right: 50%;
+}
+
+.character-controls nav {
+  margin-bottom: $size-body-padding;
+  padding: $size-inline-padding $size-body-padding;
+}
+
+.character-scene {
+  right: 0px;
+  left: 50%;
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+}
+
+.character-preview {
+  @include aspect-ratio(5, 6);
+  background: white;
+}

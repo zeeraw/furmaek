@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+  head
+    title= "Furmaek"
+    meta(charset="utf-8")
+    link(href="/css/main.css", rel="stylesheet", type="text/css")
+  body
+    header.site-header
+      h1
+        a(href="/")= "Furmaek"
+      nav
+    main.site-content
+      .character-controls
+        nav.head
+          span= "Head: "
+          each name, index in ["stag", "wolf", "tiger"]
+            a(href="#")= name + " "
+
+        nav.body
+          span= "Body: "
+          each name, index in ["cervine", "canine", "feline"]
+            a(href="#")= name + " "
+
+        nav.tail
+          span= "Tail: "
+          each name, index in ["cat", "bushy"]
+            a(href="#")= name + " "
+
+      .character-scene
+        .character-preview
+    footer.site-footer
+      mixin twitter(userName, name)
+        a(href="https://twitter.com/#{userName}", target="_blank")= name
+      p Made by #[+twitter("CaraidArt", "Caraid")] & #[+twitter("zeeraw", "Zeeraw")]
+
+
+
