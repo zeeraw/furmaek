@@ -2,26 +2,12 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-sass");
-  grunt.loadNpmTasks("grunt-react");
-  grunt.loadNpmTasks('grunt-bower');
+  grunt.loadNpmTasks("grunt-bower");
+  grunt.loadNpmTasks("grunt-browserify");
 
   grunt.initConfig({
 
     pkg: grunt.file.readJSON("package.json"),
-
-    react: {
-      dynamic_mappings: {
-        files: [
-          {
-            expand: true,
-            cwd: "./src/templates",
-            src: ["**/*.jsx"],
-            dest: "./public/js",
-            ext: ".js"
-          }
-        ]
-      }
-    },
 
     sass: {
       dist: {
@@ -34,11 +20,19 @@ module.exports = function(grunt) {
       }
     },
 
-    uglify: {
-      build: {
-        src: "src/js/main.js",
-        dest: "public/js/main.min.js"
+    browserify: {
+      options: {
+        transform: [ require("grunt-react").browserify ],
+        alias: {
+          "react": "./src/js/react.js",
+          "react-dom": "./src/js/react-dom.js"
+        }
+      },
+      app: {
+        src: "./src/js/main.jsx",
+        dest: "./public/js/main.js"
       }
+
     },
 
     bower: {
@@ -54,13 +48,23 @@ module.exports = function(grunt) {
     watch: {
       css: {
         files: [
-          "**/*.sass",
-          "**/*.scss"
+          "./src/**/*.sass",
+          "./src/**/*.scss"
         ],
         tasks: ["sass"],
         options: {
           livereload: true
         },
+      },
+      js: {
+        files: [
+          "./src/**/*.js",
+          "./src/**/*.jsx"
+        ],
+        tasks: ["browserify"],
+        options: {
+          livereload: true
+        }
       },
       bower: {
         files: [
