@@ -3,43 +3,70 @@ var React = require("react");
 
 module.exports = React.createClass({displayName: "exports",
 
+  getDefaultProps: function () {
+    return {
+      changeHandler: function (state) { alert("WAT!") },
+      heads: [],
+      bodies: [],
+      tails: [],
+    }
+  },
+
+  generateLinks: function(type, list, handler) {
+    return list.map(function(item){
+      key = type + "-" + item
+      onClick = function(e) {
+        state = {}
+        state[type] = item
+        handler(state);
+      }
+      return React.createElement("a", {href: "#", key: key, onClick: onClick}, item)
+    });
+  },
+
   render: function() {
+    var handler = this.props.changeHandler
+    var heads = this.generateLinks("head", this.props.heads, handler)
+    var bodies = this.generateLinks("body", this.props.bodies, handler)
+    var tails = this.generateLinks("tail", this.props.tails, handler)
+
     return (
       React.createElement("div", {className: "character-controls"}, 
         React.createElement("nav", {className: "head"}, 
-          React.createElement("span", null, "Head: "), 
-          React.createElement("a", {href: "#"}, "stag"), 
-          React.createElement("a", {href: "#"}, "wolf"), 
-          React.createElement("a", {href: "#"}, "tiger")
+          React.createElement("span", null, "Head: "), heads
         ), 
         React.createElement("nav", {className: "body"}, 
-          React.createElement("span", null, "Body: "), 
-          React.createElement("a", {href: "#"}, "cervine"), 
-          React.createElement("a", {href: "#"}, "canine"), 
-          React.createElement("a", {href: "#"}, "feline")
+          React.createElement("span", null, "Body: "), bodies
         ), 
         React.createElement("nav", {className: "tail"}, 
-          React.createElement("span", null, "Tail: "), 
-          React.createElement("a", {href: "#"}, "cat"), 
-          React.createElement("a", {href: "#"}, "bushy")
+          React.createElement("span", null, "Tail: "), tails
         )
       )
     );
   }
 
 });
+
 },{"react":"react"}],2:[function(require,module,exports){
 var React = require("react");
 
 module.exports = React.createClass({displayName: "exports",
 
+  getDefaultProps: function () {
+      return {
+          head: "stag",
+          body: "feline",
+          tail: "cat",
+      };
+  },
+
   render: function() {
     return (
       React.createElement("div", {className: "character-scene"}, 
         React.createElement("div", {className: "character-preview"}, 
-          React.createElement("img", {className: "character-head", src: "/assets/head/stag.png"}), 
-          React.createElement("img", {className: "character-body", src: "/assets/body/cervine.png"}), 
-          React.createElement("img", {className: "character-tail", src: "/assets/tail/cat.png"})
+          React.createElement("img", {className: "character-head", src:  "/assets/head/" + this.props.head + ".png"}), 
+          React.createElement("img", {className: "character-body", src:  "/assets/body/" + this.props.body + ".png"}), 
+          React.createElement("img", {className: "character-tail", src:  "/assets/tail/" + this.props.tail + ".png"})
         )
       )
     )
@@ -54,6 +81,10 @@ var CharacterControls = require("./components/character_controls.jsx");
 var CharacterScene = require("./components/character_scene.jsx");
 
 var App = React.createClass({displayName: "App",
+
+	changeHandler: function (state) {
+		this.setState(state)
+	},
 
 	getInitialState: function () {
 		return {
@@ -84,13 +115,19 @@ var App = React.createClass({displayName: "App",
 
 	render: function() {
 
-			var fruits = this.state.fruits;
-			var filter = this.state.filter;
+			var head = this.state.head;
+			var body = this.state.body;
+			var tail = this.state.tail;
 
 			return (
 					React.createElement("main", {className: "site-content"}, 
-						React.createElement(CharacterControls, null), 
-						React.createElement(CharacterScene, null)
+						React.createElement(CharacterControls, {	heads: this.props.heads, 
+																bodies: this.props.bodies, 
+																tails: this.props.tails, 
+																changeHandler: this.changeHandler}
+						), 
+
+						React.createElement(CharacterScene, {head: head, body: body, tail: tail})
 					)
 			);
 	}

@@ -6,6 +6,10 @@ var CharacterScene = require("./components/character_scene.jsx");
 
 var App = React.createClass({
 
+	changeHandler: function (state) {
+		this.setState(state)
+	},
+
 	getInitialState: function () {
 		return {
 			head: this.props.heads[0],
@@ -35,13 +39,19 @@ var App = React.createClass({
 
 	render: function() {
 
-			var fruits = this.state.fruits;
-			var filter = this.state.filter;
+			var head = this.state.head;
+			var body = this.state.body;
+			var tail = this.state.tail;
 
 			return (
 					<main className="site-content">
-						<CharacterControls />
-						<CharacterScene />
+						<CharacterControls 	heads={this.props.heads}
+																bodies={this.props.bodies}
+																tails={this.props.tails}
+																changeHandler={this.changeHandler}
+						/>
+
+						<CharacterScene head={head} body={body} tail={tail} />
 					</main>
 			);
 	}
