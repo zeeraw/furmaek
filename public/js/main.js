@@ -86,11 +86,15 @@ var App = React.createClass({displayName: "App",
 		this.setState(state)
 	},
 
+	getRandom: function(items) {
+		return items[Math.floor(Math.random()*items.length)]
+	},
+
 	getInitialState: function () {
 		return {
-			head: this.props.heads[0],
-			body: this.props.bodies[0],
-			tail: this.props.tails[0],
+			head: this.getRandom(this.props.heads),
+			body: this.getRandom(this.props.bodies),
+			tail: this.getRandom(this.props.tails)
 		};
 	},
 
